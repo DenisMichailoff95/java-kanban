@@ -7,7 +7,6 @@ public class TaskManager {
 
     private final Map<Integer, Task> tasks = new HashMap<>();
     private final Map<Integer, Epic> epics = new HashMap<>();
-    //private final Map<Integer, Subtask> subtasks = new HashMap<>();
 
     public void addTask(TaskStatus taskStatus, String taskName, String taskDescription) {
         Task task = new Task(taskStatus, taskName, taskDescription);
@@ -36,13 +35,13 @@ public class TaskManager {
         Subtask subtask = new Subtask(taskStatus, taskName, taskDescription, epicId);
         Epic epic = epics.get(subtask.getEpicId());
         epic.addSubtask(subtask);
-        controlEpicStatus(epicId);
+        adjustingEpicStatus(epicId);
     }
 
     public void addSubtask(Subtask subtask) {
         Epic epic = epics.get(subtask.getEpicId());
         epic.addSubtask(subtask);
-        controlEpicStatus(subtask.getEpicId());
+        adjustingEpicStatus(subtask.getEpicId());
     }
 
     public Task getTaskByID(int id) {
@@ -94,7 +93,7 @@ public class TaskManager {
                 return newSubtask;
             }
         }
-        return null;
+        return oldSubtask;
     }
 
     public void deleteTaskByID(int id) {
@@ -112,7 +111,7 @@ public class TaskManager {
                 epicSubtasksMap.remove(subtaskId);
             }
         }
-        controlEpicStatus(subtaskId);
+        adjustingEpicStatus(subtaskId);
     }
 
     public void deleteTasks() {
@@ -124,21 +123,21 @@ public class TaskManager {
     }
 
     public void deleteSubtasks() {
-        // удалили все сабтаски и все сабтаски из эпиков, эпики остались
+
         for (Epic epic : epics.values()) {
             epic.clearSubtask();
         }
     }
 
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
 
-    public ArrayList<Epic> getEpics() {
+    public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
 
-    public void controlEpicStatus(int epicId) { // нет подзадачи
+    public void adjustingEpicStatus(int epicId) {
         Epic epic = epics.get(epicId);
         boolean newStatus = false;
         boolean doneStatus = false;

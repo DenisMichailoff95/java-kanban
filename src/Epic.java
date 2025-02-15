@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Epic extends Task{
+public class Epic extends Task {
     private final Map<Integer, Subtask> epicSubtasksMap;
 
     Epic(Task task) {
@@ -16,26 +16,23 @@ public class Epic extends Task{
         epicSubtasksMap = new HashMap<>();
     }
 
-    public boolean hasSubtask(int subtaskId){
-        if (epicSubtasksMap.containsKey(subtaskId)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public void addSubtask(Subtask subtask){
-        epicSubtasksMap.put(subtask.getTaskId(),subtask);
+    public boolean hasSubtask(int subtaskId) {
+        return epicSubtasksMap.containsKey(subtaskId);
     }
 
-    public Subtask getSubtask(int subtaskId){
+    public void addSubtask(Subtask subtask) {
+        epicSubtasksMap.put(subtask.getTaskId(), subtask);
+    }
+
+    public Subtask getSubtask(int subtaskId) {
         return epicSubtasksMap.get(subtaskId);
     }
 
-    public Map<Integer, Subtask> getSubtaskMap(){
+    public Map<Integer, Subtask> getSubtaskMap() {
         return epicSubtasksMap;
     }
 
-    public void clearSubtask(){
+    public void clearSubtask() {
         epicSubtasksMap.clear();
     }
 
