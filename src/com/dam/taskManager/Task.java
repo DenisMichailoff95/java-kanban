@@ -1,3 +1,5 @@
+package com.dam.taskManager;
+
 import java.util.Objects;
 
 public class Task {
@@ -7,14 +9,14 @@ public class Task {
     private String taskDescription;
     private final int taskId;
 
-    Task(Task task) {
+    public Task(Task task) {
         this.taskStatus = task.taskStatus;
         this.taskName = task.taskName;
         this.taskDescription = task.taskDescription;
         this.taskId = this.hashCode();
     }
 
-    Task(TaskStatus taskStatus, String taskName, String taskDescription) {
+    public Task(TaskStatus taskStatus, String taskName, String taskDescription) {
         this.taskStatus = taskStatus;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
@@ -23,7 +25,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "com.dam.taskManager.Task{" +
                 taskName +
                 ": description=" + taskDescription +
                 ", status=" + taskStatus +

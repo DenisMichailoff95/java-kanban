@@ -1,3 +1,5 @@
+package com.dam.taskManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -166,7 +168,7 @@ public class TaskManager {
 
     @Override
     public String toString() {
-        return "TaskManager{" +
+        return "com.dam.taskManager.TaskManager{" +
                 "tasks=" + tasks +
                 ", epics=" + epics +
                 '}';

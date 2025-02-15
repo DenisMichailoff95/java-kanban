@@ -1,17 +1,17 @@
-import java.util.ArrayList;
-import java.util.List;
+package com.dam.taskManager;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Epic extends Task {
     private final Map<Integer, Subtask> epicSubtasksMap;
 
-    Epic(Task task) {
+    public Epic(Task task) {
         super(task);
         epicSubtasksMap = new HashMap<>();
     }
 
-    Epic(TaskStatus taskStatus, String taskName, String taskDescription) {
+    public Epic(TaskStatus taskStatus, String taskName, String taskDescription) {
         super(taskStatus, taskName, taskDescription);
         epicSubtasksMap = new HashMap<>();
     }
@@ -38,7 +38,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "Epic{" +
+        return "com.dam.taskManager.Epic{" +
                 ": name=" + super.getTaskName() +
                 ", description=" + super.getTaskDescription() +
                 ", status=" + super.getTaskStatus() +
