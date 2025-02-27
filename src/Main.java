@@ -1,9 +1,17 @@
 import com.dam.taskManager.*;
 
 public class Main {
-    public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
 
+    private static final InMemoryTaskManager taskManager = Managers.getDefault();
+
+    public static void main(String[] args) {
+
+        addTasksAndView();
+        printHistory();
+
+    }
+
+    public static void addTasksAndView() {
         Task task = new Task(TaskStatus.NEW, "My com.dam.taskManager.Task", "com.dam.taskManager.Task deskription");
         taskManager.addTask(task);
         Epic myEpic = new Epic(TaskStatus.NEW, "My com.dam.taskManager.Epic", "com.dam.taskManager.Task deskription");
@@ -42,5 +50,12 @@ public class Main {
         System.out.println(taskManager.getTasks());
         System.out.println(taskManager.getEpics());
 
+    }
+
+    public static void printHistory() {
+        System.out.println("History");
+        for (Task task : taskManager.getHistory()) {
+            System.out.println(task);
+        }
     }
 }

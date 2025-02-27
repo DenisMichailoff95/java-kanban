@@ -1,6 +1,6 @@
 package com.dam.taskManager;
 
-public class Subtask extends Task{
+public class Subtask extends Task {
     private final int epicId;
 
     public Subtask(Task task, int epicId) {
