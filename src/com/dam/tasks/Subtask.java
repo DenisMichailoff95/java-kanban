@@ -1,4 +1,6 @@
-package com.dam.taskManager;
+package com.dam.tasks;
+
+import com.dam.enums.TaskStatus;
 
 public class Subtask extends Task {
     private final int epicId;
@@ -19,7 +21,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "com.dam.taskManager.Subtask{" +
+        return "Subtask{" +
                 "epicId=" + epicId +
                 ": subtaskName=" + super.getTaskName() +
                 ": description=" + super.getTaskDescription() +

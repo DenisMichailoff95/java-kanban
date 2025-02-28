@@ -1,4 +1,9 @@
-package com.dam.taskManager;
+package com.dam.taskManagers;
+
+import com.dam.enums.TaskStatus;
+import com.dam.tasks.Epic;
+import com.dam.tasks.Subtask;
+import com.dam.tasks.Task;
 
 import java.util.List;
 

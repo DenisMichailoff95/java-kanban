@@ -1,4 +1,4 @@
-package com.dam.taskManager;
+package com.dam.taskManagers;
 
 public class Managers {
     public static InMemoryTaskManager getDefault() {

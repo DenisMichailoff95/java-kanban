@@ -1,4 +1,9 @@
-package com.dam.taskManager;
+package com.dam.taskManagers;
+
+import com.dam.enums.TaskStatus;
+import com.dam.tasks.Epic;
+import com.dam.tasks.Subtask;
+import com.dam.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,11 +129,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteTaskByID(int id) {
+        historyManager.removeFromHistory(tasks.get(id));
         Task task = tasks.remove(id);
     }
 
     @Override
     public void deleteEpicByID(int id) {
+        historyManager.removeFromHistory(epics.get(id));
         Epic epic = epics.remove(id);
     }
 
@@ -137,6 +144,7 @@ public class InMemoryTaskManager implements TaskManager {
         for (Epic epic : epics.values()) {
             if (epic.hasSubtask(subtaskId)) {
                 Map<Integer, Subtask> epicSubtasksMap = epic.getSubtaskMap();
+                historyManager.removeFromHistory(epicSubtasksMap.get(subtaskId));
                 epicSubtasksMap.remove(subtaskId);
             }
         }
@@ -200,7 +208,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public String toString() {
-        return "com.dam.taskManager.TaskManager{" +
+        return "TaskManager{" +
                 "tasks=" + tasks +
                 ", epics=" + epics +
                 '}';

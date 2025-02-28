@@ -1,23 +1,25 @@
-package com.dam.taskManager;
+package com.dam.tasks;
+
+import com.dam.enums.TaskStatus;
 
 import java.util.Objects;
 
 public class Task {
 
-    private TaskStatus taskStatus;
+    private TaskStatus status;
     private String taskName;
     private String taskDescription;
     private final int taskId;
 
     public Task(Task task) {
-        this.taskStatus = task.taskStatus;
+        this.status = task.status;
         this.taskName = task.taskName;
         this.taskDescription = task.taskDescription;
         this.taskId = this.hashCode();
     }
 
     public Task(TaskStatus taskStatus, String taskName, String taskDescription) {
-        this.taskStatus = taskStatus;
+        this.status = status;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskId = this.hashCode();
@@ -25,10 +27,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return "com.dam.taskManager.Task{" +
+        return "Task{" +
                 taskName +
                 ": description=" + taskDescription +
-                ", status=" + taskStatus +
+                ", status=" + status +
                 ", taskId=" + taskId +
                 '}';
     }
@@ -47,11 +49,11 @@ public class Task {
     }
 
     public TaskStatus getTaskStatus() {
-        return taskStatus;
+        return status;
     }
 
     public void setTaskStatus(TaskStatus taskStatus) {
-        this.taskStatus = taskStatus;
+        this.status = status;
     }
 
     public String getTaskName() {

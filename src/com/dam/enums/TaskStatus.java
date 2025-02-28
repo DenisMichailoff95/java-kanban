@@ -1,4 +1,4 @@
-package com.dam.taskManager;
+package com.dam.enums;
 
 public enum TaskStatus {
     NEW,

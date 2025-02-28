@@ -1,4 +1,6 @@
-package com.dam.taskManager;
+package com.dam.tasks;
+
+import com.dam.enums.TaskStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +40,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "com.dam.taskManager.Epic{" +
+        return "Epic{" +
                 ": name=" + super.getTaskName() +
                 ", description=" + super.getTaskDescription() +
                 ", status=" + super.getTaskStatus() +

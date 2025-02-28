@@ -1,4 +1,6 @@
-package com.dam.taskManager;
+package com.dam.taskManagers;
+
+import com.dam.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +19,18 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
+    public void clearHistory() {
+        historyList.clear();
+    }
+
+    @Override
     public List<Task> getHistory() {
         return historyList;
+    }
+
+    @Override
+    public void removeFromHistory(Task task) {
+        historyList.remove(task);
     }
 
 }
