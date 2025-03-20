@@ -58,7 +58,10 @@ public class Main {
     }
 
     public static void printHistory() {
-        System.out.println("History");
+
+        System.out.println("printRequestHistory");
+        taskManager.printRequestHistory();
+        System.out.println("taskManager.getHistory()");
         for (Task task : taskManager.getHistory()) {
             System.out.println(task);
         }
