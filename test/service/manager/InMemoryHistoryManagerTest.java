@@ -1,4 +1,4 @@
-package test.manager;
+package manager;
 
 import java.util.List;
 
@@ -31,9 +31,8 @@ public class InMemoryHistoryManagerTest {
         for (int i = 0; i <= sizeForRepeats; i++) {
             historyManager.add(task);
         }
-        List<Task> exampleOfRequestHistoryList = historyManager.getHistory();
-
-        assertEquals(sizeForRepeats, exampleOfRequestHistoryList.size(), "The repeat limit does not work");
+        List<Task> RequestHistoryList = historyManager.getHistory();
+        assertEquals(sizeForChecking, RequestHistoryList.size(), "The repeat limit does not work");
     }
 
     @Test

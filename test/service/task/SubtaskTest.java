@@ -1,4 +1,4 @@
-package test.task;
+package task;
 
 import com.dam.enums.TaskStatus;
 import com.dam.taskManagers.*;

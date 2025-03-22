@@ -1,4 +1,4 @@
-package test.task;
+package task;
 
 import com.dam.tasks.Task;
 import com.dam.taskManagers.InMemoryTaskManager;
