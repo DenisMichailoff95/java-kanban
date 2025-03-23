@@ -19,7 +19,7 @@ public class Task {
     }
 
     public Task(TaskStatus taskStatus, String taskName, String taskDescription) {
-        this.status = status;
+        this.status = taskStatus;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskId = this.hashCode();

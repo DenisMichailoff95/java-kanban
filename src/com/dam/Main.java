@@ -19,7 +19,10 @@ public class Main {
 
     public static void addTasksAndView() {
         Task task = new Task(TaskStatus.NEW, "My com.dam.tasks.Task", "com.dam.tasks.Task deskription");
+        System.out.println(task.toString());
         taskManager.addTask(task);
+        System.out.println(taskManager.getTaskByID(task.getTaskId()).toString());
+
         Epic myEpic = new Epic(TaskStatus.NEW, "My com.dam.tasks.Epic", "com.dam.tasks.Task deskription");
 
         taskManager.addEpic(myEpic);

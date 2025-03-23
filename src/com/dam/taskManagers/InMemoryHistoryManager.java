@@ -109,7 +109,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void clearHistory() {
         requestHistory.clear();
-        //возможно ноду еще надо почистить
+        this.tail = null;
+        this.head = null;
     }
 
     //вложенный класс node
