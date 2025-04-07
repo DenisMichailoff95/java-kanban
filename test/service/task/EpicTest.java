@@ -1,12 +1,13 @@
-package test.task;
-
-import com.dam.enums.TaskStatus;
-import com.dam.taskManagers.*;
+package task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.dam.tasks.Epic;
 import org.junit.jupiter.api.Test;
+
+import com.dam.enums.TaskStatus;
+import com.dam.taskManagers.*;
+import com.dam.tasks.Epic;
+
 
 class EpicTest {
 
