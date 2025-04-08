@@ -13,4 +13,7 @@ public class Managers {
         return new InMemoryTaskManager();
     }
 
+    public static FileBackedTaskManager getDefaultFileBackedManager() {
+        return new FileBackedTaskManager();
+    }
 }

@@ -18,6 +18,11 @@ public class Epic extends Task {
         epicSubtasksMap = new HashMap<>();
     }
 
+    public Epic(TaskStatus taskStatus, String taskName, String taskDescription, int id) {
+        super(taskStatus, taskName, taskDescription, id);
+        epicSubtasksMap = new HashMap<>();
+    }
+
     public boolean hasSubtask(int subtaskId) {
         return epicSubtasksMap.containsKey(subtaskId);
     }
