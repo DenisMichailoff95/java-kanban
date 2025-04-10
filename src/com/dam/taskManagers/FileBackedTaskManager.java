@@ -6,6 +6,7 @@ import com.dam.tasks.Epic;
 import com.dam.tasks.Subtask;
 import com.dam.tasks.Task;
 
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -23,6 +24,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     public FileBackedTaskManager() {
         super();
+        this.file = new File(filePath.toString());
     }
 
     public FileBackedTaskManager(File file) {
@@ -149,11 +151,19 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     }
 
     private void save() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath.toFile())); BufferedReader br = new BufferedReader(new FileReader(filePath.toFile()))) {
+        try {
+            if (Files.exists(file.toPath())) {
+                Files.delete(file.toPath());
+            }
+            Files.createFile(file.toPath());
+        } catch (IOException e) {
+            throw new ManagerSaveException("Не удалось найти файл для записи данных");
+        }
+
+        try (FileWriter fileWriter = new FileWriter(file, StandardCharsets.UTF_8)) {
 
             StringBuilder sb = new StringBuilder();
             String header = "id,type,name,status,description,startTime,duration,endTime,epic" + "\n";
-            ;
 
             sb.append(header);
 
@@ -172,7 +182,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                     sb.append(toString(subtask)).append("\n");
                 }
             }
-            bw.write(sb.toString());
+            fileWriter.write(sb.toString());
 
         } catch (IOException e) {
 
