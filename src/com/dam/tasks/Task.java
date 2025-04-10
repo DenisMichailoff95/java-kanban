@@ -25,6 +25,13 @@ public class Task {
         this.taskId = this.hashCode();
     }
 
+    public Task(TaskStatus taskStatus, String taskName, String taskDescription, int taskId) {
+        this.status = taskStatus;
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.taskId = taskId;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
