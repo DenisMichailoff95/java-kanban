@@ -15,8 +15,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             remove(task.getTaskId());
         }
         linkLast(task);
-    }
-
+    };
     private void linkLast(Task task) {
         Node newNode = new Node(null, task, tail);
 
@@ -31,10 +30,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             tail.setNext(newNode);
             tail = newNode;
         }
-
         requestHistory.put(task.getTaskId(), newNode);
     }
-
     @Override
     public void remove(int id) {
         Node node = requestHistory.remove(id);
