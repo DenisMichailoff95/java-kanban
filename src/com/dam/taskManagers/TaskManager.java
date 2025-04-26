@@ -5,10 +5,11 @@ import com.dam.tasks.Epic;
 import com.dam.tasks.Subtask;
 import com.dam.tasks.Task;
 
+import java.time.Instant;
 import java.util.List;
 
 public interface TaskManager {
-    void addTask(TaskStatus taskStatus, String taskName, String taskDescription);
+    void addTask(TaskStatus taskStatus, String taskName, String taskDescription, Instant startTime, long duration);
 
     void addTask(Task task);
 
@@ -18,7 +19,7 @@ public interface TaskManager {
 
     void addEpic(Task task);
 
-    void addSubtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId);
+    void addSubtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, Instant startTime, long duration);
 
     void addSubtask(Subtask subtask);
 

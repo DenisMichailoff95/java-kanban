@@ -31,7 +31,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             tail.setNext(newNode);
             tail = newNode;
         }
-
         requestHistory.put(task.getTaskId(), newNode);
     }
 

@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
+import java.time.Instant;
 import java.util.List;
 
 import java.io.*;
@@ -50,8 +51,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     }
 
     @Override
-    public void addTask(TaskStatus taskStatus, String taskName, String taskDescription) {
-        super.addTask(taskStatus, taskName, taskDescription);
+    public void addTask(TaskStatus taskStatus, String taskName, String taskDescription, Instant startTime, long duration) {
+        super.addTask(taskStatus, taskName, taskDescription, startTime, duration);
         save();
     }
 
@@ -79,8 +80,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     }
 
     @Override
-    public void addSubtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId) {
-        super.addSubtask(taskStatus, taskName, taskDescription, epicId);
+    public void addSubtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, Instant startTime, long duration) {
+        super.addSubtask(taskStatus, taskName, taskDescription, epicId, startTime, duration);
         save();
     }
 
@@ -168,12 +169,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
             sb.append(header);
 
             for (Task task : getTasks()) {
-                System.out.println(task.toString());
                 sb.append(toString(task)).append("\n");
             }
 
             for (Epic epic : getEpics()) {
-                System.out.println(toString(epic));
                 sb.append(toString(epic)).append("\n");
 
                 Map<Integer, Subtask> epicSubtasksMap = epic.getSubtaskMap();
@@ -195,11 +194,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     private String toString(Task task) {
         if (task instanceof Subtask) {
             Subtask subtask = (Subtask) task;
-            return String.format("%d,%s,%s,%s,%s,%d", task.getTaskId(), TaskType.SUBTASK, task.getTaskName(), task.getTaskStatus(), task.getTaskDescription(), subtask.getEpicId());
+            return String.format("%d,%s,%s,%s,%s,%s,%s,%d", task.getTaskId(), TaskType.SUBTASK, task.getTaskName(), task.getTaskStatus(), task.getTaskDescription(), task.getStartTime(), task.getDuration(), subtask.getEpicId());
         } else if (task instanceof Epic) {
-            return String.format("%d,%s,%s,%s,%s,", task.getTaskId(), TaskType.EPIC, task.getTaskName(), task.getTaskStatus(), task.getTaskDescription());
+            return String.format("%d,%s,%s,%s,%s,%s,%s,", task.getTaskId(), TaskType.EPIC, task.getTaskName(), task.getTaskStatus(), task.getTaskDescription(), task.getStartTime(), task.getDuration());
         } else {
-            return String.format("%d,%s,%s,%s,%s,", task.getTaskId(), TaskType.TASK, task.getTaskName(), task.getTaskStatus(), task.getTaskDescription());
+            return String.format("%d,%s,%s,%s,%s,%s,%s,", task.getTaskId(), TaskType.TASK, task.getTaskName(), task.getTaskStatus(), task.getTaskDescription(), task.getStartTime(), task.getDuration());
         }
     }
 
@@ -229,20 +228,22 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
         String type = fields[1];
         String name = fields[2];
         String status = fields[3];
-        TaskStatus taskStatus = TaskStatus.valueOf(status);
         String description = fields[4];
-        int epicId = type.equals("SUBTASK") ? Integer.parseInt(fields[5]) : -1;
+        Instant startTime = Instant.parse(fields[5]);
+        int duration = Integer.parseInt(fields[6]);
+        TaskStatus taskStatus = TaskStatus.valueOf(status);
+        int epicId = type.equals("SUBTASK") ? Integer.parseInt(fields[7]) : -1;
 
         Task task;
         switch (type) {
             case "TASK":
-                task = new Task(taskStatus, name, description, id);
+                task = new Task(taskStatus, name, description, id, startTime, duration);
                 break;
             case "EPIC":
-                task = new Epic(taskStatus, name, description, id);
+                task = new Epic(taskStatus, name, description, id, startTime, duration);
                 break;
             case "SUBTASK":
-                task = new Subtask(taskStatus, name, description, epicId);
+                task = new Subtask(taskStatus, name, description, epicId, startTime, duration);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown task type: " + type);
