@@ -16,20 +16,20 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
     protected final Map<Integer, Task> tasks = new HashMap<>();
     protected final Map<Integer, Epic> epics = new HashMap<>();
     protected final HistoryManager historyManager = Managers.getDefaultHistory();
-    private Set<Task> prioritizedTasks = new TreeSet<>(this);;
+    private Set<Task> prioritizedTasks = new TreeSet<>(this);
 
     InMemoryTaskManager() {
 
     }
 
     InMemoryTaskManager(InMemoryTaskManager inMemoryTaskManager) {
-
     }
 
     // получение приоритетного списка + его конвертация из TreeSet в ArrayList
     public List<Task> getPrioritizedTasks() {
         return new ArrayList<>(prioritizedTasks);
     }
+
     // добавление & проверка
     private void addToPrioritizedTasks(Task task) {
         prioritizedTasks.add(task);
@@ -42,10 +42,7 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
         for (int i = 1; i < prioritizedTasks.size(); i++) {
             var prioritizedTask = prioritizedTasks.get(i);
             if (prioritizedTask.getStartTime().isBefore(prioritizedTasks.get(i - 1).getEndTime()))
-                throw new OverlapException("Найдено пересечение между "
-                        + prioritizedTasks.get(i)
-                        + " и "
-                        + prioritizedTasks.get(i - 1));
+                throw new OverlapException("Найдено пересечение между " + prioritizedTasks.get(i) + " и " + prioritizedTasks.get(i - 1));
         }
     }
 
@@ -244,11 +241,9 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
         for (Subtask subtask : epicSubtasksMap.values()) {
 
             if (startTime != null && endTime != null) {
-                if (subtask.getStartTime().isBefore(startTime))
-                    startTime = subtask.getStartTime();
+                if (subtask.getStartTime().isBefore(startTime)) startTime = subtask.getStartTime();
 
-                if (subtask.getEndTime().isAfter(endTime))
-                    endTime = subtask.getEndTime();
+                if (subtask.getEndTime().isAfter(endTime)) endTime = subtask.getEndTime();
             } else {
                 startTime = subtask.getStartTime();
                 endTime = subtask.getEndTime();
@@ -280,10 +275,7 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
 
     @Override
     public String toString() {
-        return "TaskManager{" +
-                "tasks=" + tasks +
-                ", epics=" + epics +
-                '}';
+        return "TaskManager{" + "tasks=" + tasks + ", epics=" + epics + '}';
     }
 
     public List<Task> getHistory() {

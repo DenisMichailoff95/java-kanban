@@ -10,12 +10,21 @@ public class InMemoryHistoryManager implements HistoryManager {
     private Node tail;
 
     @Override
+    public void remove(int id) {
+        Node node = requestHistory.remove(id);
+        if (node != null) {
+            removeNode(node);
+        }
+    }
+
+    @Override
     public void add(Task task) {
         if (requestHistory.containsKey(task.getTaskId())) {
             remove(task.getTaskId());
         }
         linkLast(task);
-    };
+    }
+
     private void linkLast(Task task) {
         Node newNode = new Node(null, task, tail);
 
@@ -31,13 +40,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             tail = newNode;
         }
         requestHistory.put(task.getTaskId(), newNode);
-    }
-    @Override
-    public void remove(int id) {
-        Node node = requestHistory.remove(id);
-        if (node != null) {
-            removeNode(node);
-        }
     }
 
     @Override
