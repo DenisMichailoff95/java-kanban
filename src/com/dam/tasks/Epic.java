@@ -2,6 +2,7 @@ package com.dam.tasks;
 
 import com.dam.enums.TaskStatus;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -18,12 +19,12 @@ public class Epic extends Task {
         epicSubtasksMap = new HashMap<>();
     }
 
-    public Epic(TaskStatus taskStatus, String taskName, String taskDescription, Instant startTime, long duration) {
+    public Epic(TaskStatus taskStatus, String taskName, String taskDescription, Instant startTime, Duration duration) {
         super(taskStatus, taskName, taskDescription, startTime, duration);
         epicSubtasksMap = new HashMap<>();
     }
 
-    public Epic(TaskStatus taskStatus, String taskName, String taskDescription, int id, Instant startTime, long duration) {
+    public Epic(TaskStatus taskStatus, String taskName, String taskDescription, int id, Instant startTime, Duration duration) {
         super(taskStatus, taskName, taskDescription, id, startTime, duration);
         epicSubtasksMap = new HashMap<>();
     }
@@ -57,6 +58,10 @@ public class Epic extends Task {
     @Override
     public String toString() {
 
+        long durationHH = duration.toHours();
+        long durationMM = duration.toMinutesPart();
+        long durationSS = duration.toSecondsPart();
+
         return "Epic{" +
                 "status=" + status +
                 ", taskName='" + taskName + '\'' +
@@ -66,7 +71,7 @@ public class Epic extends Task {
                 .format(startTime.atOffset(ZoneOffset.UTC)) +
                 ", endTime=" + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 .format(getEndTime().atOffset(ZoneOffset.UTC)) +
-                ", duration=" + String.format("%02d:%02d", duration / 60, (duration % 60)) +
+                ", duration=" + String.format("%02d:%02d:%02d", durationHH, durationMM, durationSS) +
                 '}';
     }
 }

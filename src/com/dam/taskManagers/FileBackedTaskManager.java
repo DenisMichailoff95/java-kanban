@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     }
 
     @Override
-    public void addTask(TaskStatus taskStatus, String taskName, String taskDescription, Instant startTime, long duration) {
+    public void addTask(TaskStatus taskStatus, String taskName, String taskDescription, Instant startTime, Duration duration) {
         super.addTask(taskStatus, taskName, taskDescription, startTime, duration);
         save();
     }
@@ -80,7 +81,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     }
 
     @Override
-    public void addSubtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, Instant startTime, long duration) {
+    public void addSubtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, Instant startTime, Duration duration) {
         super.addSubtask(taskStatus, taskName, taskDescription, epicId, startTime, duration);
         save();
     }
@@ -230,7 +231,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
         String status = fields[3];
         String description = fields[4];
         Instant startTime = Instant.parse(fields[5]);
-        int duration = Integer.parseInt(fields[6]);
+        Duration duration = Duration.parse(fields[6]);
         TaskStatus taskStatus = TaskStatus.valueOf(status);
         int epicId = type.equals("SUBTASK") ? Integer.parseInt(fields[7]) : -1;
 

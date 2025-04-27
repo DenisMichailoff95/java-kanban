@@ -53,12 +53,23 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
 
     @Override // сравнение тасков по getStartTime()
     public int compare(Task o1, Task o2) {
-        return o1.getStartTime().compareTo(o2.getStartTime());
+        Optional<Instant> time1 = Optional.ofNullable(o1.getStartTime());
+        Optional<Instant> time2 = Optional.ofNullable(o2.getStartTime());
+
+        if (time1.isPresent() && time2.isPresent()) {
+            return time1.get().compareTo(time2.get());
+        } else if (time1.isPresent()) {
+            return -1; // null считается "больше"
+        } else if (time2.isPresent()) {
+            return 1;  // null считается "больше"
+        } else {
+            return 0;  // оба null
+        }
     }
 
 
     @Override
-    public void addTask(TaskStatus taskStatus, String taskName, String taskDescription, Instant startTime, long duration) {
+    public void addTask(TaskStatus taskStatus, String taskName, String taskDescription, Instant startTime, Duration duration) {
         Task task = new Task(taskStatus, taskName, taskDescription, startTime, duration);
         addToPrioritizedTasks(task);
         tasks.put(task.getTaskId(), task);
@@ -72,7 +83,7 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
 
     @Override
     public void addEpic(TaskStatus taskStatus, String taskName, String taskDescription) {  // пустой эпик не должен длится и иметь дату старта
-        Epic epic = new Epic(taskStatus, taskName, taskDescription, null, 0); // эпики не смотрим на приоритизацию, они через сабтаски видны
+        Epic epic = new Epic(taskStatus, taskName, taskDescription, null, null); // эпики не смотрим на приоритизацию, они через сабтаски видны
         epics.put(epic.getTaskId(), epic);
     }
 
@@ -87,7 +98,7 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
     }
 
     @Override
-    public void addSubtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, Instant startTime, long duration) {
+    public void addSubtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, Instant startTime, Duration duration) {
         Subtask subtask = new Subtask(taskStatus, taskName, taskDescription, epicId, startTime, duration);
         Epic epic = epics.get(subtask.getEpicId());
         if (epic != null) {
@@ -237,16 +248,18 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
 
         Instant startTime = null;
         Instant endTime = null;
+        Duration epicDuration = null;
 
         for (Subtask subtask : epicSubtasksMap.values()) {
 
             if (startTime != null && endTime != null) {
                 if (subtask.getStartTime().isBefore(startTime)) startTime = subtask.getStartTime();
-
                 if (subtask.getEndTime().isAfter(endTime)) endTime = subtask.getEndTime();
+                epicDuration.plus(subtask.getDuration());
             } else {
                 startTime = subtask.getStartTime();
                 endTime = subtask.getEndTime();
+                epicDuration = subtask.getDuration();
             }
 
 
@@ -269,7 +282,7 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
 
         epic.setStartTime(startTime);
         epic.setEndTime(endTime); // сохраняем, чтобы пересчитывать только при изменении
-        epic.setDuration(Duration.between(startTime, endTime).toMinutes());
+        epic.setDuration(epicDuration);
 
     }
 

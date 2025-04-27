@@ -2,6 +2,7 @@ package com.dam.tasks;
 
 import com.dam.enums.TaskStatus;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -15,12 +16,12 @@ public class Subtask extends Task {
 
     }
 
-    public Subtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, Instant startTime, long duration) {
+    public Subtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, Instant startTime, Duration duration) {
         super(taskStatus, taskName, taskDescription, startTime, duration);
         this.epicId = epicId;
     }
 
-    public Subtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, int id, Instant startTime, long duration) {
+    public Subtask(TaskStatus taskStatus, String taskName, String taskDescription, int epicId, int id, Instant startTime, Duration duration) {
         super(taskStatus, taskName, taskDescription, id, startTime, duration);
         this.epicId = epicId;
     }
