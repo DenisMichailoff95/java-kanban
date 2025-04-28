@@ -2,9 +2,17 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/com/dam/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/dam/ServerStarter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/dam/enums/TaskStatus.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/dam/enums/TaskType.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/dam/exceptions/ManagerSaveException.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/dam/http/HttpTaskServer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/dam/http/handlers/BaseHttpHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/dam/http/handlers/EpicHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/dam/http/handlers/HistoryHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/dam/http/handlers/PrioritizedTasksHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/dam/http/handlers/SubtaskHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/dam/http/handlers/TaskHandler.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/dam/taskManagers/FileBackedTaskManager.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/dam/taskManagers/HistoryManager.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/dam/taskManagers/InMemoryTaskManager.java" charset="UTF-8" />

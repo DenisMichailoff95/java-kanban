@@ -238,6 +238,18 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
         return new ArrayList<>(epics.values());
     }
 
+    public List<Subtask> getSubtasks() {
+
+        List<Subtask> st = new ArrayList();
+
+        for (Epic epic : epics.values()) {
+            for (Subtask subtask : epic.getSubtaskMap().values()) {
+                    st.add(subtask);
+            }
+        }
+        return st;
+    }
+
     public void adjustingEpicStatus(int epicId) {
         Epic epic = epics.get(epicId);
         boolean newStatus = false;

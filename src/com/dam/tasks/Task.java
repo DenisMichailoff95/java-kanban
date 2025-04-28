@@ -15,7 +15,7 @@ public class Task {
     protected String taskDescription;
     protected final int taskId;
     protected Instant startTime;
-    protected Duration duration; // можно использовать класс Duration, пока точность не нужна можно без него
+    protected Duration duration;
 
     public Task(Task task) {
         this.status = task.status;
