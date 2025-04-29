@@ -51,7 +51,7 @@ public class TaskHandler extends BaseHttpHandler {
             Task task = gson.fromJson(bodyRequest, Task.class);
             if (taskManager.getTaskByID(task.getTaskId()) != null) {
                 taskManager.updateTask(task);
-                sendText(httpExchange, "success", 201);
+                sendText(httpExchange, "success", 200);
             } else {
                 taskManager.addTask(task);
                 sendText(httpExchange, Integer.toString(task.getTaskId()), 201);

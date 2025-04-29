@@ -25,7 +25,7 @@ public class ServerStarter {
         }
 
         addTasks();
-        httpTaskManager.start();
+        httpTaskManager.main();
 //        httpTaskManager.stop(300);
     }
 

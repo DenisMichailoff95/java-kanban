@@ -27,7 +27,7 @@ public class HttpTaskServer {
         return taskManager;
     }
 
-    public void start() {
+    public void main() {
         httpServer.start();
         System.out.println("HTTP-сервер запущен");
     }

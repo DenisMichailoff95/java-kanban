@@ -256,7 +256,13 @@ public class InMemoryTaskManager implements TaskManager, Comparator<Task> {
         boolean doneStatus = false;
         boolean inProgressStatus = false;
 
-        Map<Integer, Subtask> epicSubtasksMap = epic.getSubtaskMap();
+        Map<Integer, Subtask> epicSubtasksMap = null;
+
+        if (epic.getSubtaskCount() != 0) {
+           epicSubtasksMap = epic.getSubtaskMap();
+        } else {
+            return;
+        }
 
         Instant startTime = null;
         Instant endTime = null;

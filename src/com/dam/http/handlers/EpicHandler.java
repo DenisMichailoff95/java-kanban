@@ -47,6 +47,7 @@ public class EpicHandler extends BaseHttpHandler {
                 sendText(httpExchange, Integer.toString(epic.getTaskId()), 201);
             }
         } catch (JsonSyntaxException e) {
+            System.out.println(e.getCause() + " " + e.getMessage());
             sendNotFound(httpExchange);
         }
     }
@@ -65,7 +66,6 @@ public class EpicHandler extends BaseHttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         String method = httpExchange.getRequestMethod();
         String[] path = httpExchange.getRequestURI().getPath().split("/");
-
 
         switch (method) {
             case "GET" -> handleGet(httpExchange, path);

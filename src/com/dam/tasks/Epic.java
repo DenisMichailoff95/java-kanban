@@ -51,6 +51,10 @@ public class Epic extends Task {
         return epicSubtasksMap;
     }
 
+    public int getSubtaskCount() {
+        return epicSubtasksMap != null ? epicSubtasksMap.size() : 0;
+    }
+
     public void clearSubtask() {
         epicSubtasksMap.clear();
     }
