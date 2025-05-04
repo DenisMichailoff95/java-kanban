@@ -40,5 +40,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="java-kanban" />
+    <orderEntry type="library" name="google.code.gson" level="project" />
   </component>
 </module>
